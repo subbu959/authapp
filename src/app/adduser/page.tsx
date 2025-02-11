@@ -4,8 +4,9 @@ import { useRouter } from "next/navigation"
 import Link from "next/link"
 import axios from "axios"
 import { cp } from "fs"
+import { AddUserForm } from "@/components/adduser-form"
 
-export default function SignupPage(){
+export default function AdduserPage(){
     const [user,setUser] = React.useState({
         fname: "",
         lname:"",
@@ -19,9 +20,10 @@ export default function SignupPage(){
         cpassword: ""
     })
     return (
-        <div>
-            <h1>Add a New User</h1>
-            
-        </div>
+        <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+                    <div className="w-full max-w-lg">
+                        <AddUserForm />
+                    </div>
+                </div>
     )
 }
