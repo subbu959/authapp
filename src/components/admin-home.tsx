@@ -4,7 +4,16 @@ import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import { User, columns } from "@/app/user-table/columns";
 import { DataTable } from "@/app/user-table/data-table";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { Button } from "./ui/button";
+import { AddUserForm } from "./adduser-form";
 async function getData(): Promise<User[]> {
   // Fetch data from your API here.
   return [
@@ -145,20 +154,25 @@ export function AdminHome({
     setData((prevData) => prevData.filter((user) => user.id !== id));
   };
 
-  const userColumns = columns(handleEdit, handleDelete); // Call the function
+  const userColumns = columns(handleEdit); // Call the function
 
   return (
     <div className={`flex flex-col min-h-screen ${className}`} {...props}>
       {/* Navbar */}
       <header className="fixed top-0 left-0 w-full bg-white shadow-md px-6 py-4 flex items-center justify-between z-50">
         <h2 className="text-xl font-bold text-gray-900">Welcome Admin</h2>
-        <a
-          href="/adduser"
-          className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          Add User
-        </a>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Plus className="mr-2 h-4 w-4" />
+                Create User
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogTitle>Add New User</DialogTitle>
+                <AddUserForm />
+            </DialogContent>
+          </Dialog>
       </header>
 
       {/* Main Content */}

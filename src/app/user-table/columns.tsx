@@ -2,6 +2,14 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 // Define the type for User
 export type User = {
@@ -19,61 +27,69 @@ export type User = {
 // Define the function that returns column definitions
 export const columns = (
   handleEdit: (user: User) => void,
-  handleDelete: (id: number) => void
-): ColumnDef<User>[] => [
-  {
-    accessorKey: "firstName",
-    header: "First Name",
-  },
-  {
-    accessorKey: "lastName",
-    header: "Last Name",
-  },
-  {
-    accessorKey: "username",
-    header: "Username",
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-  },
-  {
-    accessorKey: "phone",
-    header: "Phone",
-  },
-  {
-    accessorKey: "address",
-    header: "Address",
-  },
-  {
-    accessorKey: "city",
-    header: "City",
-  },
-  {
-    accessorKey: "state",
-    header: "State",
-  },
-  {
-    id: "actions",
-    header: "Actions",
-    cell: ({ row }) => {
-      const user = row.original;
-      return (
-        <div className="flex space-x-2">
-          {/* <Button
-            variant="outline"
-            onClick={() => handleEdit(user)}
-          >
-            Edit
-          </Button> */}
-          <Button
+
+): ColumnDef<User>[] => 
+  [
+    {
+      accessorKey: "firstName",
+      header: "First Name",
+    },
+    {
+      accessorKey: "lastName",
+      header: "Last Name",
+    },
+    {
+      accessorKey: "username",
+      header: "Username",
+    },
+    {
+      accessorKey: "email",
+      header: "Email",
+    },
+    {
+      accessorKey: "phone",
+      header: "Phone",
+    },
+    {
+      accessorKey: "address",
+      header: "Address",
+    },
+    {
+      accessorKey: "city",
+      header: "City",
+    },
+    {
+      accessorKey: "state",
+      header: "State",
+    },
+    {
+      id: "actions",
+      header: "Actions",
+      cell: ({ row }) => {
+        const user = row.original;
+        return (
+          <div className="flex space-x-2">
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  onClick={() => handleEdit(user)}
+                >
+                  Edit
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                  <DialogTitle>Edit User Details</DialogTitle>
+              </DialogContent>
+            </Dialog>
+            {/* <Button
             variant="destructive"
             onClick={() => handleDelete(user.id)}
           >
             Delete
-          </Button>
-        </div>
-      );
+          </Button> */}
+          </div>
+        );
+      },
     },
-  },
-];
+  ];

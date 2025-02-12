@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react"
 import * as React from "react"
+import { useState } from "react"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -41,18 +42,44 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
     getFilteredRowModel: getFilteredRowModel(),
     state: { columnFilters },
   })
-
+  const [selectedField, setSelectedField] = useState("email");
   return (
     <div className="rounded-lg border bg-white shadow-md">
+
+      
       {/* Search Filter */}
-      <div className="flex items-center gap-4 p-4 border-b">
+      <div className="flex items-center gap-4 p-4 border-b bg-gray-50">
+        {/* Dropdown for selecting filter field */}
+        <select
+          value={selectedField}
+          onChange={(event) => setSelectedField(event.target.value)}
+          className="border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-md p-2"
+        >
+          {[
+            { label: "First Name", value: "firstName" },
+            { label: "Last Name", value: "lastName" },
+            { label: "Username", value: "username" },
+            { label: "Email", value: "email" },
+            { label: "Phone", value: "phone" },
+            { label: "Address", value: "address" },
+            { label: "City", value: "city" },
+            { label: "State", value: "state" },
+          ].map(({ label, value }) => (
+            <option key={value} value={value}>
+              {label}
+            </option>
+          ))}
+        </select>
+
+        {/* Input for filtering based on selected field */}
         <Input
-          placeholder="Search by email..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) => table.getColumn("email")?.setFilterValue(event.target.value)}
+          placeholder={`Search by ${selectedField}...`}
+          value={(table.getColumn(selectedField)?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn(selectedField)?.setFilterValue(event.target.value)}
           className="w-full max-w-sm border-gray-300 focus:ring-2 focus:ring-blue-500 rounded-md"
         />
       </div>
+
 
       {/* Data Table */}
       <div className="overflow-x-auto">

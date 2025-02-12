@@ -60,79 +60,74 @@ export function AddUserForm({
           console.log("User Data:", formData);
         }
       };
-    return (
-        <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Add New User</CardTitle>
-          <CardDescription>Enter the below details to add a new user</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-4">
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { label: "First Name", id: "fname", placeholder: "John" },
-                  { label: "Last Name", id: "lname", placeholder: "Doe" },
-                  { label: "Username", id: "uname", placeholder: "johndoe" },
-                  { label: "Email", id: "email", placeholder: "m@example.com", type: "email" },
-                ].map(({ label, id, placeholder, type = "text" }) => (
-                  <div key={id} className="grid gap-2">
-                    <Label htmlFor={id}>{label}</Label>
-                    <Input
-                      id={id}
-                      type={type}
-                      placeholder={placeholder}
-                      value={formData[id as keyof typeof formData]}
-                      onChange={handleChange}
-                      className={errors[id] ? "border-red-500" : ""}
-                      required
-                    />
-                    {errors[id] && <p className="text-red-500 text-sm">{errors[id]}</p>}
-                  </div>
-                ))}
-              </div>
-              <div className="grid grid-cols-2 gap-6">
-                {[
-                  { label: "Phone Number", id: "phno", placeholder: "1234567890", type: "tel" },
-                  { label: "Address", id: "address", placeholder: "123 Main St" },
-                  { label: "City", id: "city", placeholder: "New York" },
-                  { label: "State", id: "state", placeholder: "NY" },
-                ].map(({ label, id, placeholder, type = "text" }) => (
-                  <div key={id} className="grid gap-2">
-                    <Label htmlFor={id}>{label}</Label>
-                    <Input
-                      id={id}
-                      type={type}
-                      placeholder={placeholder}
-                      value={formData[id as keyof typeof formData]}
-                      onChange={handleChange}
-                      className={errors[id] ? "border-red-500" : ""}
-                      required
-                    />
-                    {errors[id] && <p className="text-red-500 text-sm">{errors[id]}</p>}
-                  </div>
-                ))}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className={errors.password ? "border-red-500" : ""}
-                  required
-                />
-                {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-              </div>
-              <Button type="submit" className="w-full">
-                Add User
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
-    )
+      return (
+        <div className={cn("flex flex-col space-y-2 p-3 bg-gray-100 rounded-lg", className)} {...props}>
+          <Card className="shadow-lg border border-gray-200">
+            <CardContent className="p-6">
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { label: "First Name", id: "fname", placeholder: "John" },
+                    { label: "Last Name", id: "lname", placeholder: "Doe" },
+                    { label: "Username", id: "uname", placeholder: "johndoe" },
+                    { label: "Email", id: "email", placeholder: "m@example.com", type: "email" },
+                  ].map(({ label, id, placeholder, type = "text" }) => (
+                    <div key={id} className="flex flex-col space-y-2">
+                      <Label htmlFor={id} className="text-gray-700 font-medium">{label}</Label>
+                      <Input
+                        id={id}
+                        type={type}
+                        placeholder={placeholder}
+                        value={formData[id as keyof typeof formData]}
+                        onChange={handleChange}
+                        className={`rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500 ${errors[id] ? "border-red-500" : ""}`}
+                        required
+                      />
+                      {errors[id] && <p className="text-red-500 text-sm">{errors[id]}</p>}
+                    </div>
+                  ))}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {[
+                    { label: "Phone Number", id: "phno", placeholder: "1234567890", type: "tel" },
+                    { label: "Address", id: "address", placeholder: "123 Main St" },
+                    { label: "City", id: "city", placeholder: "New York" },
+                    { label: "State", id: "state", placeholder: "NY" },
+                  ].map(({ label, id, placeholder, type = "text" }) => (
+                    <div key={id} className="flex flex-col space-y-2">
+                      <Label htmlFor={id} className="text-gray-700 font-medium">{label}</Label>
+                      <Input
+                        id={id}
+                        type={type}
+                        placeholder={placeholder}
+                        value={formData[id as keyof typeof formData]}
+                        onChange={handleChange}
+                        className={`rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500 ${errors[id] ? "border-red-500" : ""}`}
+                        required
+                      />
+                      {errors[id] && <p className="text-red-500 text-sm">{errors[id]}</p>}
+                    </div>
+                  ))}
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <Label htmlFor="password" className="text-gray-700 font-medium">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={`rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500 ${errors.password ? "border-red-500" : ""}`}
+                    required
+                  />
+                  {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                </div>
+                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
+                  Add User
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      );
+      
 }
