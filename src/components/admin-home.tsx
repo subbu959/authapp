@@ -122,51 +122,52 @@ async function getData(): Promise<User[]> {
 }
 
 export function AdminHome({
-    className,
-    ...props
-  }: React.ComponentPropsWithoutRef<"div">) {
-    const [data, setData] = useState<User[]>([]);
-  
-    useEffect(() => {
-      async function fetchData() {
-        const result = await getData();
-        setData(result);
-      }
-      fetchData();
-    }, []);
-  
-    // Handle user edit
-    const handleEdit = (user: User) => {
-      console.log("Editing user:", user);
-    };
-  
-    // Handle user delete
-    const handleDelete = (id: number) => {
-      setData((prevData) => prevData.filter((user) => user.id !== id));
-    };
-  
-    const userColumns = columns(handleEdit, handleDelete); // Call the function
-  
-    return (
-      <div className={`flex flex-col min-h-screen ${className}`} {...props}>
-        {/* Navbar */}
-        <header className="fixed top-0 left-0 w-full bg-white shadow-md px-6 py-4 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-gray-900">Welcome</h2>
-          <a
-            href="/adduser"
-            className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add User
-          </a>
-        </header>
-  
-        {/* Main Content */}
-        <main className="flex-1 pt-20 px-6">
-          <div className="container mx-auto py-6">
-            <DataTable columns={userColumns} data={data} />
-          </div>
-        </main>
-      </div>
-    );
-  }
+  className,
+  ...props
+}: React.ComponentPropsWithoutRef<"div">) {
+  const [data, setData] = useState<User[]>([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const result = await getData();
+      setData(result);
+    }
+    fetchData();
+  }, []);
+
+  // Handle user edit
+  const handleEdit = (user: User) => {
+    console.log("Editing user:", user);
+  };
+
+  // Handle user delete
+  const handleDelete = (id: number) => {
+    setData((prevData) => prevData.filter((user) => user.id !== id));
+  };
+
+  const userColumns = columns(handleEdit, handleDelete); // Call the function
+
+  return (
+    <div className={`flex flex-col min-h-screen ${className}`} {...props}>
+      {/* Navbar */}
+      <header className="fixed top-0 left-0 w-full bg-white shadow-md px-6 py-4 flex items-center justify-between z-50">
+        <h2 className="text-xl font-bold text-gray-900">Welcome Admin</h2>
+        <a
+          href="/adduser"
+          className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition"
+        >
+          <Plus className="mr-2 h-4 w-4" />
+          Add User
+        </a>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-1 pt-[80px] px-4 md:px-6">
+        <div className="max-w-6xl mx-auto py-6">
+          <DataTable columns={userColumns} data={data} />
+        </div>
+      </main>
+    </div>
+
+  );
+}

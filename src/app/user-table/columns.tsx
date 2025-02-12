@@ -60,12 +60,12 @@ export const columns = (
       const user = row.original;
       return (
         <div className="flex space-x-2">
-          <Button
+          {/* <Button
             variant="outline"
             onClick={() => handleEdit(user)}
           >
             Edit
-          </Button>
+          </Button> */}
           <Button
             variant="destructive"
             onClick={() => handleDelete(user.id)}
