@@ -48,6 +48,7 @@ export function AdminLoginForm({
     }
   };
   return (
+
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
@@ -96,8 +97,10 @@ export function AdminLoginForm({
               <a href="/admin-signup" className="underline underline-offset-4">Sign up</a>
             </div>
           </form>
+          
         </CardContent>
       </Card>
     </div>
+
   )
 }
