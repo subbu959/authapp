@@ -10,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { EditUserForm } from "@/components/edit-userform";
 
 // Define the type for User
 export type User = {
@@ -25,71 +26,61 @@ export type User = {
 };
 
 // Define the function that returns column definitions
-export const columns = (
-  handleEdit: (user: User) => void,
-
-): ColumnDef<User>[] => 
-  [
-    {
-      accessorKey: "firstName",
-      header: "First Name",
+export const columns = (handleEdit: (user: User) => void): ColumnDef<User>[] => [
+  {
+    accessorKey: "firstName",
+    header: "First Name",
+  },
+  {
+    accessorKey: "lastName",
+    header: "Last Name",
+  },
+  {
+    accessorKey: "username",
+    header: "Username",
+  },
+  {
+    accessorKey: "email",
+    header: "Email",
+  },
+  {
+    accessorKey: "phone",
+    header: "Phone",
+  },
+  {
+    accessorKey: "address",
+    header: "Address",
+  },
+  {
+    accessorKey: "city",
+    header: "City",
+  },
+  {
+    accessorKey: "state",
+    header: "State",
+  },
+  {
+    id: "actions",
+    header: "Actions",
+    cell: ({ row }) => {
+      const user = row.original;
+      return (
+        <div className="flex space-x-2">
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline" onClick={() => handleEdit(user)}>
+                Edit
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Edit User Details</DialogTitle>
+              </DialogHeader>
+              <EditUserForm user={user} />
+            </DialogContent>
+          </Dialog>
+        </div>
+      );
     },
-    {
-      accessorKey: "lastName",
-      header: "Last Name",
-    },
-    {
-      accessorKey: "username",
-      header: "Username",
-    },
-    {
-      accessorKey: "email",
-      header: "Email",
-    },
-    {
-      accessorKey: "phone",
-      header: "Phone",
-    },
-    {
-      accessorKey: "address",
-      header: "Address",
-    },
-    {
-      accessorKey: "city",
-      header: "City",
-    },
-    {
-      accessorKey: "state",
-      header: "State",
-    },
-    {
-      id: "actions",
-      header: "Actions",
-      cell: ({ row }) => {
-        const user = row.original;
-        return (
-          <div className="flex space-x-2">
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button
-                  variant="outline"
-                  onClick={() => handleEdit(user)}
-                >
-                  Edit
-                </Button>
-              </DialogTrigger>
-              <DialogContent>
-                  <DialogTitle>Edit User Details</DialogTitle>
-              </DialogContent>
-            </Dialog>
-            {/* <Button
-            variant="destructive"
-            onClick={() => handleDelete(user.id)}
-          >
-            Delete
-          </Button> */}
-          </div>
-        );
-      },
-    },
-  ];
+  },
+];
