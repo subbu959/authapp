@@ -1,3 +1,4 @@
+"use client"
 import { AdminSignupForm } from "@/components/admin-signupform";
 
 export default function AdminSignupPage() {

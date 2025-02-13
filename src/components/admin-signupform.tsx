@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -12,7 +11,6 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import Link from 'next/link';
 import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "@/redux/features/authSlice";
 import { useRouter } from "next/navigation";
@@ -36,6 +34,7 @@ export function AdminSignupForm({
   
     const [errors, setErrors] = useState<Record<string, string>>({});
     const router = useRouter();
+    const dispatch = useDispatch<AppDispatch>();
     const validateForm = () => {
       let newErrors: Record<string, string> = {};
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -63,11 +62,10 @@ export function AdminSignupForm({
     };
   
     const handleSubmit = (e: React.FormEvent) => {
-      const dispatch = useDispatch<AppDispatch>();
       e.preventDefault();
       if (validateForm()) {
-        dispatch(signUp({ formData, router }));
         console.log("User Data:", formData);
+        dispatch(signUp({ formData, router }));
       }
     };
     return (
