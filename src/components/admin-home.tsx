@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dialog"
 import { Button } from "./ui/button";
 import { AddUserForm } from "./adduser-form";
-import { InteractiveHoverButton } from "./magicui/interactive-hover-button";
 async function getData(): Promise<User[]> {
   // Fetch data from your API here.
   return [
@@ -164,9 +163,9 @@ export function AdminHome({
         <h2 className="text-xl font-bold text-gray-900">Welcome Admin</h2>
         <Dialog>
           <DialogTrigger asChild>
-            <InteractiveHoverButton className="relative flex items-center gap-2 px-5 py-2.5 text-white font-semibold rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:from-blue-600 hover:to-indigo-700 focus:ring-2 focus:ring-blue-400">
+            <Button className="relative flex items-center gap-2 px-5 py-2.5 text-white font-semibold rounded-lg bg-gradient-to-r from-blue-500 to-indigo-600 shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg hover:from-blue-600 hover:to-indigo-700 focus:ring-2 focus:ring-blue-400">
               Create User
-            </InteractiveHoverButton>
+            </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogTitle>Add New User</DialogTitle>

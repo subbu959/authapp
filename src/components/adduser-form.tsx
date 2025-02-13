@@ -6,9 +6,6 @@ import { Button } from "@/components/ui/button"
 import {
     Card,
     CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -27,6 +24,7 @@ export function AddUserForm({
         city: "",
         state: "",
         password: "",
+        cpassword:"",
       });
     
       const [errors, setErrors] = useState<Record<string, string>>({});
@@ -45,6 +43,9 @@ export function AddUserForm({
         if (!formData.city || formData.city.length < 3) newErrors.city = "City must be at least 3 characters.";
         if (!formData.state || formData.state.length < 2) newErrors.state = "State must be at least 2 characters.";
         if (!formData.password || formData.password.length < 6) newErrors.password = "Password must be at least 6 characters.";
+        if (!formData.cpassword || formData.cpassword.length < 6) newErrors.cpassword = "Confirm Password must be at least 6 characters.";
+        if (formData.password !== formData.cpassword) newErrors.cpassword = "Passwords do not match.";
+
     
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
@@ -120,6 +121,18 @@ export function AddUserForm({
                     required
                   />
                   {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <Label htmlFor="cpassword" className="text-gray-700 font-medium">Confirm Password</Label>
+                  <Input
+                    id="cpassword"
+                    type="password"
+                    value={formData.cpassword}
+                    onChange={handleChange}
+                    className={`rounded-lg border-gray-300 focus:ring-2 focus:ring-blue-500 ${errors.cpassword ? "border-red-500" : ""}`}
+                    required
+                  />
+                  {errors.cpassword && <p className="text-red-500 text-sm">{errors.cpassword}</p>}
                 </div>
                 <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
                   Add User
